@@ -1,0 +1,44 @@
+<%= form_with(model: customer, local: true) do |form| %>
+  <% if customer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+
+      <ul>
+      <% customer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :company_name %>
+    <%= form.text_field :company_name, id: :customer_company_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :contact_email %>
+    <%= form.text_field :contact_email, id: :customer_contact_email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_start %>
+    <%= form.date_select :date_start, id: :customer_date_start %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%#= select_tag(:status,  options_for_select([['Pagado'], ['Facturado']])) %>
+    <%= form.select :status, [['Pagado'], ['Recycling'], ['Pet Waste'], ['Organic'], ['E-Waste']], class: "form-control" %>
+  </div>
+  <div class="field">
+    <%= form.label :service_type %>
+    <%#= select_tag :service_id, options_for_select(Service.all.map{|s|[s.service_name, s.id]}) %>
+  </div>
+  <div>
+    <%= form.select :service_id, options_for_select(Service.all.map{|s|[s.service_name, s.id]}) %>
+  </div>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
